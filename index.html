@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lexend:wght@100..900&display=swap"
+    rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>detecx.in</title>
+  <!-- Include Lottie-web library via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Lexend', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #4086FF;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, #4086FF 70%);
+      z-index: 1;
+    }
+
+    .tech-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Circuit Board Pattern */
+    .circuit-path {
+      position: absolute;
+      opacity: 0;
+      animation: circuitFlow 8s ease-in-out infinite;
+    }
+
+    @keyframes circuitFlow {
+      0% {
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 0.4;
+      }
+
+      80% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .circuit-horizontal {
+      height: 2px;
+      background: linear-gradient(90deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.6) 20%,
+          rgba(255, 255, 255, 0.9) 50%,
+          rgba(255, 255, 255, 0.6) 80%,
+          transparent 100%);
+      width: 100%;
+    }
+
+    .circuit-vertical {
+      width: 2px;
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.6) 20%,
+          rgba(255, 255, 255, 0.9) 50%,
+          rgba(255, 255, 255, 0.6) 80%,
+          transparent 100%);
+      height: 100%;
+    }
+
+    .circuit-node {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      box-shadow:
+        0 0 10px rgba(255, 255, 255, 0.6),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.2);
+      animation: nodeGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes nodeGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow:
+          0 0 10px rgba(255, 255, 255, 0.6),
+          0 0 20px rgba(255, 255, 255, 0.4);
+      }
+
+      50% {
+        transform: scale(1.3);
+        box-shadow:
+          0 0 15px rgba(255, 255, 255, 0.8),
+          0 0 30px rgba(255, 255, 255, 0.6),
+          0 0 45px rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    .circuit-chip {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      animation: chipPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes chipPulse {
+
+      0%,
+      100% {
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+      }
+
+      50% {
+        border-color: rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    .data-stream {
+      position: absolute;
+      width: 3px;
+      height: 40px;
+      background: linear-gradient(180deg,
+          transparent 0%,
+          rgba(255, 255, 255, 0.9) 50%,
+          transparent 100%);
+      animation: dataFlow 4s linear infinite;
+    }
+
+    @keyframes dataFlow {
+      0% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      background: rgba(254, 254, 254, 0.98);
+      border-radius: 40px;
+      padding: 70px 300px;
+      /* Increased padding */
+      max-width: 1600px;
+      /* Increased from 1100px */
+      width: 100%;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+      text-align: center;
+      animation: fadeIn 0.8s ease-in;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      margin-bottom: 80px;
+      /* Increased to match larger container */
+      animation: slideDown 0.6s ease-out;
+    }
+
+    .logo-image {
+      max-width: 500px;
+      /* Increased from 400px */
+      width: 100%;
+      height: auto;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .illustration {
+      margin: 80px auto;
+      /* Increased margin and kept auto for centering */
+      animation: float 3s ease-in-out infinite;
+      max-width: 500px;
+      /* Increased from 400px */
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    #animation-container {
+      width: 100%;
+      height: 437.5px;
+      /* Increased from 350px (500 * 1400/1600) */
+    }
+
+    .text-content {
+      margin-top: 60px;
+      /* Slightly increased */
+      animation: fadeInUp 0.8s ease-out 0.3s backwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .text-content p {
+      font-size: 32px;
+      /* Increased from 24px */
+      line-height: 1.6;
+      color: #333;
+      margin: 10px 0;
+      /* Slightly increased */
+      font-weight: 300;
+    }
+
+    .text-content p:first-child {
+      font-weight: 700;
+    }
+
+    /* Floating particles animation */
+    .particle {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: rise 12s infinite ease-in;
+      z-index: 5;
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+
+    @keyframes rise {
+      0% {
+        bottom: -10px;
+        opacity: 1;
+      }
+
+      100% {
+        bottom: 100vh;
+        opacity: 0;
+      }
+    }
+
+    .particle:nth-child(1) {
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .particle:nth-child(2) {
+      left: 20%;
+      animation-delay: 2s;
+    }
+
+    .particle:nth-child(3) {
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    .particle:nth-child(4) {
+      left: 40%;
+      animation-delay: 1s;
+    }
+
+    .particle:nth-child(5) {
+      left: 50%;
+      animation-delay: 3s;
+    }
+
+    .particle:nth-child(6) {
+      left: 60%;
+      animation-delay: 5s;
+    }
+
+    .particle:nth-child(7) {
+      left: 70%;
+      animation-delay: 2.5s;
+    }
+
+    .particle:nth-child(8) {
+      left: 80%;
+      animation-delay: 4.5s;
+    }
+
+    .particle:nth-child(9) {
+      left: 90%;
+      animation-delay: 1.5s;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 60px 40px;
+        /* Adjusted for larger container */
+        border-radius: 30px;
+      }
+
+      .logo-image {
+        max-width: 375px;
+        /* Increased from 300px */
+      }
+
+      .text-content p {
+        font-size: 22px;
+        /* Increased from 18px */
+      }
+
+      .illustration {
+        max-width: 375px;
+        /* Increased from 300px */
+      }
+
+      #animation-container {
+        height: 328.125px;
+        /* Increased from 262.5px (375 * 1400/1600) */
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Tech Background Animation -->
+  <div class="tech-background">
+    <!-- Circuit Board Paths - Horizontal -->
+    <div class="circuit-path circuit-horizontal" style="top: 10%; animation-delay: 0s;"></div>
+    <div class="circuit-path circuit-horizontal" style="top: 25%; animation-delay: 2s;"></div>
+    <div class="circuit-path circuit-horizontal" style="top: 50%; animation-delay: 4s;"></div>
+    <div class="circuit-path circuit-horizontal" style="top: 75%; animation-delay: 6s;"></div>
+    <div class="circuit-path circuit-horizontal" style="top: 90%; animation-delay: 1s;"></div>
+
+    <!-- Circuit Board Paths - Vertical -->
+    <div class="circuit-path circuit-vertical" style="left: 15%; animation-delay: 1s;"></div>
+    <div class="circuit-path circuit-vertical" style="left: 35%; animation-delay: 3s;"></div>
+    <div class="circuit-path circuit-vertical" style="left: 50%; animation-delay: 5s;"></div>
+    <div class="circuit-path circuit-vertical" style="left: 65%; animation-delay: 7s;"></div>
+    <div class="circuit-path circuit-vertical" style="left: 85%; animation-delay: 2s;"></div>
+
+    <!-- Circuit Nodes (Connection Points) -->
+    <div class="circuit-node" style="top: 10%; left: 15%; animation-delay: 0s;"></div>
+    <div class="circuit-node" style="top: 10%; left: 50%; animation-delay: 0.5s;"></div>
+    <div class="circuit-node" style="top: 10%; left: 85%; animation-delay: 1s;"></div>
+
+    <div class="circuit-node" style="top: 25%; left: 35%; animation-delay: 1.5s;"></div>
+    <div class="circuit-node" style="top: 25%; left: 65%; animation-delay: 2s;"></div>
+
+    <div class="circuit-node" style="top: 50%; left: 15%; animation-delay: 2.5s;"></div>
+    <div class="circuit-node" style="top: 50%; left: 50%; animation-delay: 3s;"></div>
+    <div class="circuit-node" style="top: 50%; left: 85%; animation-delay: 3.5s;"></div>
+
+    <div class="circuit-node" style="top: 75%; left: 35%; animation-delay: 4s;"></div>
+    <div class="circuit-node" style="top: 75%; left: 65%; animation-delay: 4.5s;"></div>
+
+    <div class="circuit-node" style="top: 90%; left: 15%; animation-delay: 5s;"></div>
+    <div class="circuit-node" style="top: 90%; left: 50%; animation-delay: 5.5s;"></div>
+    <div class="circuit-node" style="top: 90%; left: 85%; animation-delay: 6s;"></div>
+
+    <!-- Microchip Elements -->
+    <div class="circuit-chip" style="top: 20%; left: 25%; animation-delay: 0s;"></div>
+    <div class="circuit-chip" style="top: 40%; left: 70%; animation-delay: 1s;"></div>
+    <div class="circuit-chip" style="top: 60%; left: 20%; animation-delay: 2s;"></div>
+    <div class="circuit-chip" style="top: 80%; left: 75%; animation-delay: 3s;"></div>
+
+    <!-- Data Streams -->
+    <div class="data-stream" style="left: 15%; animation-delay: 0s;"></div>
+    <div class="data-stream" style="left: 35%; animation-delay: 1.5s;"></div>
+    <div class="data-stream" style="left: 50%; animation-delay: 3s;"></div>
+    <div class="data-stream" style="left: 65%; animation-delay: 4.5s;"></div>
+    <div class="data-stream" style="left: 85%; animation-delay: 2s;"></div>
+  </div>
+
+  <!-- Floating particles -->
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+  <div class="container">
+    <div class="logo">
+      <img src="Frame 1566662618.png" alt="Detecx Systems Logo" class="logo-image">
+    </div>
+
+    <div class="illustration">
+      <div id="animation-container"></div>
+    </div>
+
+    <div class="text-content">
+      <p>Innovation in progress. Excellence on the way.</p>
+      <p>Coming soon to transform your digital journey.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if lottie is defined
+      if (typeof lottie !== 'undefined') {
+        var animation = lottie.loadAnimation({
+          container: document.getElementById('animation-container'),
+          renderer: 'svg',
+          loop: true,
+          autoplay: true,
+          path: 'animation.json' // Update to 'public/animation.json' if needed
+        });
+        animation.addEventListener('DOMLoaded', function () {
+          console.log('Lottie animation loaded!');
+        });
+        animation.addEventListener('error', function (error) {
+          console.error('Lottie animation error:', error);
+        });
+      } else {
+        console.error('Lottie library not loaded');
+      }
+
+      // Mouse movement effect
+      const illustration = document.querySelector('.illustration');
+      if (illustration) {
+        document.addEventListener('mousemove', (e) => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 20;
+          const y = (e.clientY / window.innerHeight - 0.5) * 20;
+          illustration.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      } else {
+        console.error('Illustration element not found');
+      }
+    });
+  </script>
+</body>
+
+</html>
