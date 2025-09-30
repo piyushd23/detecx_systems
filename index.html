@@ -28,7 +28,8 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      overflow: hidden;
+      overflow-y: auto; /* allow vertical scrolling */
+      overflow-x: hidden; 
       position: relative;
     }
 
@@ -284,9 +285,10 @@
     }
 
     #animation-container {
-      width: 100%;
-      height: 437.5px;
-      /* Increased from 350px (500 * 1400/1600) */
+        width: 100%;
+  aspect-ratio: 16 / 9;
+  max-width: 500px;
+  margin: 0 auto;
     }
 
     .text-content {
@@ -391,33 +393,44 @@
       animation-delay: 1.5s;
     }
 
-    @media (max-width: 768px) {
-      .container {
-        padding: 60px 40px;
-        /* Adjusted for larger container */
-        border-radius: 30px;
-      }
+    @media (max-width: 1024px) {
+  .container {
+    padding: 6vw 6vw;
+  }
 
-      .logo-image {
-        max-width: 375px;
-        /* Increased from 300px */
-      }
+  .logo-image,
+  .illustration {
+    max-width: 80%;
+  }
+}
 
-      .text-content p {
-        font-size: 22px;
-        /* Increased from 18px */
-      }
+@media (max-width: 768px) {
+  .container {
+    padding: 6vw 4vw;
+  }
 
-      .illustration {
-        max-width: 375px;
-        /* Increased from 300px */
-      }
+  .text-content p {
+    font-size: clamp(1rem, 4vw, 22px);
+  }
+}
 
-      #animation-container {
-        height: 328.125px;
-        /* Increased from 262.5px (375 * 1400/1600) */
-      }
-    }
+@media (max-width: 480px) {
+  .container {
+    padding: 9vw 3vw;
+    border-radius: 16px;
+  }
+
+  .text-content p {
+    font-size: clamp(0.9rem, 4vw, 18px);
+  }
+
+  .logo-image,
+  .illustration {
+    max-width: 90%;
+  }
+}
+
+
   </style>
 </head>
 
@@ -484,7 +497,7 @@
 
   <div class="container">
     <div class="logo">
-      <img src="Frame 1566662618.png" alt="Detecx Systems Logo" class="logo-image">
+      <img src="Frame 1566662618.png" alt="Detecx Systems Logo" loading="lazy" class="logo-image">
     </div>
 
     <div class="illustration">
@@ -524,7 +537,9 @@
         document.addEventListener('mousemove', (e) => {
           const x = (e.clientX / window.innerWidth - 0.5) * 20;
           const y = (e.clientY / window.innerHeight - 0.5) * 20;
-          illustration.style.transform = `translate(${x}px, ${y}px)`;
+        //   illustration.style.transform = translate(`${x}px, ${y}px`);
+            illustration.style.transform = `translate(${x}px, ${y}px)`;
+
         });
       } else {
         console.error('Illustration element not found');
