@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-gray-50 border-t border-gray-200 pt-24 pb-12 px-6">
+    <footer className="bg-gray-50 border-t border-gray-200 pt-12 pb-12 px-6">
       <div className="max-w-7xl mx-auto">
 
         {/* Top Section: Brand & Navigation */}
