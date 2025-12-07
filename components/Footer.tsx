@@ -127,7 +127,7 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="text-gray-400 text-xs">
             © {new Date().getFullYear()} Detecx Systems Inc. All rights reserved.
           </p>
