@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Sparkles, Loader2, CheckCircle, BrainCircuit, RefreshCw, X } from 'lucide-react';
+import { Send, Sparkles, Loader2, CheckCircle, BrainCircuit, RefreshCw, ChevronDown } from 'lucide-react';
 import { analyzeProjectBrief } from '../services/geminiService';
 import { GeminiAnalysisResponse } from '../types';
+import { countries, Country } from '../data/countries';
 
 const Contact: React.FC = () => {
    const [name, setName] = useState('');
@@ -129,21 +130,62 @@ const Contact: React.FC = () => {
                      </div>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2" ref={dropdownRef}>
                      <label className="text-xs text-gray-400 uppercase tracking-wider font-bold">Phone (Optional)</label>
-                     <input
-                        type="tel"
-                        value={phone}
-                        onChange={(e) => {
-                           const value = e.target.value;
-                           // Only allow digits, plus, spaces, parenthesis, and hyphens
-                           if (/^[\d\s+\-()]*$/.test(value)) {
-                              setPhone(value);
-                           }
-                        }}
-                        className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
-                        placeholder="+91 0000000000"
-                     />
+                     <div className="flex gap-2">
+                        {/* Custom Dropdown */}
+                        <div className="relative">
+                           <button
+                              type="button"
+                              onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                              className="h-full bg-gray-50 border-b-2 border-transparent hover:bg-gray-100 focus:border-cobalt rounded-lg px-3 py-3 flex items-center gap-2 min-w-[100px] transition-all outline-none"
+                           >
+                              <span className="text-xl">{selectedCountry.flag}</span>
+                              <span className="text-gray-700 font-medium text-sm">{selectedCountry.dial_code}</span>
+                              <ChevronDown size={14} className="text-gray-400 ml-auto" />
+                           </button>
+
+                           {/* Dropdown Options */}
+                           <AnimatePresence>
+                              {showCountryDropdown && (
+                                 <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 10 }}
+                                    className="absolute top-full left-0 mt-2 w-64 max-h-60 bg-white rounded-xl shadow-lg border border-gray-100 overflow-y-auto z-50 custom-scrollbar"
+                                 >
+                                    {countries.map((country) => (
+                                       <button
+                                          key={country.code}
+                                          type="button"
+                                          onClick={() => {
+                                             setSelectedCountry(country);
+                                             setShowCountryDropdown(false);
+                                          }}
+                                          className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3 transition-colors"
+                                       >
+                                          <span className="text-xl">{country.flag}</span>
+                                          <span className="text-sm font-medium text-gray-700">{country.name}</span>
+                                          <span className="text-xs text-gray-400 ml-auto">{country.dial_code}</span>
+                                       </button>
+                                    ))}
+                                 </motion.div>
+                              )}
+                           </AnimatePresence>
+                        </div>
+
+                        {/* Numeric Input */}
+                        <input
+                           type="tel"
+                           value={phoneNumber}
+                           onChange={(e) => {
+                              const val = e.target.value;
+                              if (/^\d*$/.test(val)) setPhoneNumber(val);
+                           }}
+                           className="flex-1 bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
+                           placeholder="000 000 0000"
+                        />
+                     </div>
                   </div>
 
                   <div className="space-y-2">
