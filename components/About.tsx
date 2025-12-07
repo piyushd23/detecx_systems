@@ -50,7 +50,7 @@ const About: React.FC<AboutProps> = ({ onKnowMore }) => {
                   of tomorrow.
                </h2>
 
-               <p className="text-lg md:text-xl text-gray-500 font-light leading-relaxed max-w-xl mb-8">
+               <p className="text-xl md:text-2xl text-gray-500 font-light leading-relaxed max-w-xl mb-8">
                   Detecx Systems creates digital products that feel inevitable. We strip away the noise to reveal the essential, combining human-centric design with robust, scalable technology.
                </p>
 

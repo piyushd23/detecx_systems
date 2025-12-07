@@ -186,7 +186,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-8 leading-[1.1] relative"
+          className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-gray-900 mb-8 leading-[1.1] relative"
         >
           We build the future of <br className="hidden md:block" />
           <span className="relative inline-block">
@@ -204,7 +204,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-12 font-normal leading-relaxed"
+          className="text-xl md:text-2xl text-gray-500 max-w-2xl mx-auto mb-12 font-normal leading-relaxed"
         >
           Detecx Systems fuses artistic vision with engineering precision to craft digital experiences that define brands.
         </motion.p>

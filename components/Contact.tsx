@@ -5,10 +5,53 @@ import { analyzeProjectBrief } from '../services/geminiService';
 import { GeminiAnalysisResponse } from '../types';
 
 const Contact: React.FC = () => {
+   const [name, setName] = useState('');
+   const [email, setEmail] = useState('');
+   const [phone, setPhone] = useState('');
    const [brief, setBrief] = useState('');
    const [isAnalyzing, setIsAnalyzing] = useState(false);
+   const [isSubmitting, setIsSubmitting] = useState(false);
    const [analysis, setAnalysis] = useState<GeminiAnalysisResponse | null>(null);
    const [error, setError] = useState<string | null>(null);
+
+   const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+
+      const GOOGLE_SHEET_URL = import.meta.env.VITE_GOOGLE_SHEET_URL;
+
+      const data = {
+         name,
+         email,
+         phone,
+         brief,
+         analysisSummary: analysis ? analysis.summary : 'No AI Analysis'
+      };
+
+      try {
+         // Using no-cors mode because Google Scripts doesn't return CORS headers for simple POSTs
+         // This means we can't read the response, but the request will go through.
+         await fetch(GOOGLE_SHEET_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+               'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+         });
+
+         alert("Request Sent! We'll be in touch shortly.");
+         resetAnalysis();
+         setName('');
+         setEmail('');
+         setPhone('');
+      } catch (err) {
+         console.error("Submission Error:", err);
+         alert("Failed to send request. Please try again.");
+      } finally {
+         setIsSubmitting(false);
+      }
+   };
 
    const handleAnalyze = async () => {
       if (!brief.trim()) return;
@@ -60,16 +103,41 @@ const Contact: React.FC = () => {
                   Ready to start? Fill out the form or use our AI Architect to generate an instant technical roadmap for your idea.
                </p>
 
-               <div className="space-y-6 bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50">
+               <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                      <div className="space-y-2">
                         <label className="text-xs text-gray-400 uppercase tracking-wider font-bold">Name</label>
-                        <input type="text" className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white" placeholder="John Doe" />
+                        <input
+                           type="text"
+                           value={name}
+                           onChange={(e) => setName(e.target.value)}
+                           className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
+                           placeholder="John Doe"
+                           required
+                        />
                      </div>
                      <div className="space-y-2">
                         <label className="text-xs text-gray-400 uppercase tracking-wider font-bold">Email</label>
-                        <input type="email" className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white" placeholder="john@company.com" />
+                        <input
+                           type="email"
+                           value={email}
+                           onChange={(e) => setEmail(e.target.value)}
+                           className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
+                           placeholder="john@company.com"
+                           required
+                        />
                      </div>
+                  </div>
+
+                  <div className="space-y-2">
+                     <label className="text-xs text-gray-400 uppercase tracking-wider font-bold">Phone (Optional)</label>
+                     <input
+                        type="tel"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
+                        placeholder="+1 (555) 000-0000"
+                     />
                   </div>
 
                   <div className="space-y-2">
@@ -86,9 +154,11 @@ const Contact: React.FC = () => {
                            rows={4}
                            className="w-full bg-gray-50 rounded-xl border-0 p-4 text-gray-900 text-base focus:ring-2 focus:ring-cobalt/20 transition-all resize-none placeholder-gray-400 min-h-[160px]"
                            placeholder="E.g. I need a mobile app for a fitness brand that uses AI to track workouts..."
+                           required
                         />
                         <div className="absolute bottom-3 right-3">
                            <button
+                              type="button"
                               onClick={handleAnalyze}
                               disabled={!brief.trim() || isAnalyzing}
                               className="flex items-center gap-2 bg-white text-cobalt text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm border border-gray-100 hover:border-cobalt hover:bg-cobalt hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
@@ -100,10 +170,14 @@ const Contact: React.FC = () => {
                      </div>
                   </div>
 
-                  <button className="w-full bg-gray-900 text-white font-bold py-4 rounded-xl hover:bg-black transition-all flex items-center justify-center gap-3 mt-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0">
-                     Send Request <Send size={16} />
+                  <button
+                     type="submit"
+                     disabled={isSubmitting}
+                     className="w-full bg-gray-900 text-white font-bold py-4 rounded-xl hover:bg-black transition-all flex items-center justify-center gap-3 mt-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                     {isSubmitting ? <Loader2 className="animate-spin" size={16} /> : <><Send size={16} /> Send Request</>}
                   </button>
-               </div>
+               </form>
             </div>
 
             {/* Right Column: AI System Dashboard */}
