@@ -134,9 +134,15 @@ const Contact: React.FC = () => {
                      <input
                         type="tel"
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => {
+                           const value = e.target.value;
+                           // Only allow digits, plus, spaces, parenthesis, and hyphens
+                           if (/^[\d\s+\-()]*$/.test(value)) {
+                              setPhone(value);
+                           }
+                        }}
                         className="w-full bg-gray-50 border-b-2 border-transparent focus:border-cobalt rounded-lg px-4 py-3 text-gray-900 transition-all outline-none hover:bg-gray-100 focus:bg-white"
-                        placeholder="+1 (555) 000-0000"
+                        placeholder="+91 0000000000"
                      />
                   </div>
 
