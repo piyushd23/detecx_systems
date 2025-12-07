@@ -8,7 +8,13 @@ import { countries, Country } from '../data/countries';
 const Contact: React.FC = () => {
    const [name, setName] = useState('');
    const [email, setEmail] = useState('');
-   const [phone, setPhone] = useState('');
+
+   // Phone State
+   const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]); // Default to India
+   const [phoneNumber, setPhoneNumber] = useState('');
+   const [showCountryDropdown, setShowCountryDropdown] = useState(false);
+   const dropdownRef = useRef<HTMLDivElement>(null);
+
    const [brief, setBrief] = useState('');
    const [isAnalyzing, setIsAnalyzing] = useState(false);
    const [isSubmitting, setIsSubmitting] = useState(false);
