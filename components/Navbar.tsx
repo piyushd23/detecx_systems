@@ -82,7 +82,8 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible = true }) => {
 
         {/* Mobile Logo (Visible only on small screens when not in center pill) */}
         <div className="md:hidden pointer-events-auto">
-          <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="text-gray-900 font-bold tracking-tight text-lg">
+          <a href="#home" onClick={(e) => handleNavClick(e, 'home')} className="flex items-center gap-2 text-gray-900 font-bold tracking-tight text-lg">
+            <img src="/logo.png" alt="Detecx Systems Logo" className="w-8 h-8 object-contain" />
             Detecx.
           </a>
         </div>
@@ -92,8 +93,9 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible = true }) => {
           <a
             href="#home"
             onClick={(e) => handleNavClick(e, 'home')}
-            className="hidden md:block text-gray-900 font-bold tracking-tight text-lg mr-4"
+            className="hidden md:flex items-center gap-2 text-gray-900 font-bold tracking-tight text-lg mr-4"
           >
+            <img src="/logo.png" alt="Detecx Systems Logo" className="w-8 h-8 object-contain" />
             Detecx.
           </a>
 

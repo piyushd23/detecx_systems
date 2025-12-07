@@ -34,7 +34,8 @@ const Footer: React.FC = () => {
 
           {/* Brand Column (2 cols wide) */}
           <div className="lg:col-span-2 space-y-6">
-            <Link to="/" onClick={scrollToTop} className="block">
+            <Link to="/" onClick={scrollToTop} className="flex items-center gap-2">
+              <img src="/logo.png" alt="Detecx Systems Logo" className="w-10 h-10 object-contain" />
               <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Detecx Systems.</h2>
             </Link>
             <p className="text-gray-500 text-sm leading-relaxed max-w-xs">

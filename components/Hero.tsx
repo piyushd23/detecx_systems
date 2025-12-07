@@ -186,7 +186,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 mb-8 leading-[1.1] relative"
+          className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 mb-6 leading-[1.1] relative"
         >
           We build the future of <br className="hidden md:block" />
           <span className="relative inline-block">
@@ -204,7 +204,7 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-12 font-normal leading-relaxed"
+          className="text-base md:text-lg text-gray-500 max-w-2xl mx-auto mb-10 font-normal leading-relaxed"
         >
           Detecx Systems fuses artistic vision with engineering precision to craft digital experiences that define brands.
         </motion.p>
@@ -215,7 +215,7 @@ const Hero: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-full font-medium overflow-hidden shadow-xl shadow-cobalt/10 hover:shadow-cobalt/20"
+          className="group relative inline-flex items-center gap-3 px-6 py-3 bg-gray-900 text-white rounded-full font-medium overflow-hidden shadow-xl shadow-cobalt/10 hover:shadow-cobalt/20"
           onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <span className="relative z-10">Start a Project</span>
