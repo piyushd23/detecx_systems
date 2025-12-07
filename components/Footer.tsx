@@ -65,7 +65,6 @@ const Footer: React.FC = () => {
                 { label: 'About', id: 'about' },
                 { label: 'Work', id: 'work' },
                 { label: 'Process', id: 'process' },
-                { label: 'Testimonials', id: 'testimonials' },
               ].map((link) => (
                 <li key={link.id}>
                   <button

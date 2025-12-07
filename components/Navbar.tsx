@@ -71,8 +71,7 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible = true }) => {
     { name: 'About', id: 'about' },
     { name: 'Services', id: 'services' },
     { name: 'Work', id: 'work' },
-    { name: 'Process', id: 'process' },
-    { name: 'Testimonials', id: 'testimonials' }
+    { name: 'Process', id: 'process' }
   ];
 
   if (!isVisible) return null;
@@ -164,8 +163,8 @@ const Navbar: React.FC<NavbarProps> = ({ isVisible = true }) => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
                   className={`text-4xl font-bold tracking-tight ${location.pathname === '/' && activeSection === link.id
-                      ? 'text-cobalt'
-                      : 'text-gray-900'
+                    ? 'text-cobalt'
+                    : 'text-gray-900'
                     }`}
                 >
                   {link.name}

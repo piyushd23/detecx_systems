@@ -7,7 +7,6 @@ import About from './About';
 import Services from './Services';
 import Work from './Work';
 import Process, { MobileProcess } from './Process';
-import Testimonials from './Testimonials';
 import Contact from './Contact';
 import Footer from './Footer';
 
@@ -61,7 +60,6 @@ const LandingPage: React.FC = () => {
                 <Process />
                 <MobileProcess />
             </div>
-            <div id="testimonials" className="scroll-mt-32"><Testimonials /></div>
             <div id="contact" className="scroll-mt-32"><Contact /></div>
             <Footer />
         </motion.div>
